@@ -2,12 +2,12 @@ var SIZE=1024
 var ONE=1.0/SIZE
 var FORM_MARGIN=0.01*SIZE
 var MARGIN=0.1*SIZE
-var N_FORMS=20 // 10x10 forms
+var N_FORMS=40 // 10x10 forms
 var FORM_SIZE=(SIZE - 2*MARGIN - (N_FORMS-1)*FORM_MARGIN)/N_FORMS
-var NOISE_PARAM = 8;
+var NOISE_PARAM = 13;
 var RANDOM_STRENGTH = 0;
 var PARAM_START = 0;
-var PARAM_END = 10;
+var PARAM_END = 20;
 var PARAM_DELTA = 0.05;
 
 function setup() {
@@ -25,8 +25,9 @@ function setup() {
 
 function draw() {
   for(var param = PARAM_START; param < PARAM_END; param += PARAM_DELTA) {
-    stroke(255, 255, 255, Math.round(20*(PARAM_END - param)/(PARAM_END-PARAM_START)));
-    NOISE_PARAM = 0.5*param;
+    //stroke(255, 255, 255, Math.round(10*(PARAM_END - param)/(PARAM_END-PARAM_START)));
+    stroke(255, 255, 255, Math.round(5*(param - PARAM_START)/(PARAM_END-PARAM_START)));
+    //NOISE_PARAM += 0.001;
     RANDOM_STRENGTH = param
     for(var i=0; i<N_FORMS; ++i) {
       for(var j=0; j<N_FORMS; ++j) {
