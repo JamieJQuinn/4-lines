@@ -1,14 +1,15 @@
-var SIZE=2048
+var SIZE=1024
 var ONE=1.0/SIZE
-var FORM_MARGIN=0.01*SIZE
+var FORM_MARGIN=0.2*SIZE
 var MARGIN=0.3*SIZE
-var N_FORMS=1 // 10x10 forms
+var N_FORMS=2 // 10x10 forms
 var FORM_SIZE=(SIZE - 2*MARGIN - (N_FORMS-1)*FORM_MARGIN)/N_FORMS
-var NOISE_PARAM = 1;
+var NOISE_PARAM = 0;
 var RANDOM_STRENGTH = 0;
 var PARAM_START = 0;
-var PARAM_END = 10;
-var PARAM_DELTA = 0.01;
+var PARAM_END = 4;
+var PARAM_DELTA = 0.05;
+var base_noise_param=0;
 
 function setup() {
   canvas = createCanvas(SIZE, SIZE);
@@ -17,7 +18,7 @@ function setup() {
   randomSeed(seed);
   noiseSeed(seed);
 
-  noLoop();
+  //noLoop();
 
   //QuickSettings.useExtStyleSheet();
   //settings = QuickSettings.create(5, 5, "Settings ('s' to hide)");
@@ -25,19 +26,22 @@ function setup() {
 }
 
 function draw() {
+  background(51);
+  NOISE_PARAM=base_noise_param;
+  base_noise_param+=1e-2;
   var count = 0;
   for(var param = PARAM_START; param < PARAM_END; param += PARAM_DELTA) {
-    stroke(255, 255, 255, Math.round(10*(PARAM_END - param)/(PARAM_END-PARAM_START)));
-    //stroke(255, 255, 255, Math.round(20*(param - PARAM_START)/(PARAM_END-PARAM_START)));
+    //stroke(0, 0, 0, Math.round(40*(PARAM_END - param)/(PARAM_END-PARAM_START)));
+    stroke(255, 255, 255, Math.round(40*(param - PARAM_START)/(PARAM_END-PARAM_START)));
     //stroke(255);
-    //if (count % 100 == 0) {
+    //if (count % 10 == 0) {
       //stroke(255, 255, 255, Math.round(100*(PARAM_END - param)/(PARAM_END-PARAM_START)));
     //}
-    if (count == 0) {
-      stroke(255);
-    }
+    //if (count == 0) {
+      //stroke(255);
+    //}
 
-    NOISE_PARAM = 0.1*param;
+    NOISE_PARAM += 1e-3*param;
     RANDOM_STRENGTH = param
     for(var i=0; i<N_FORMS; ++i) {
       for(var j=0; j<N_FORMS; ++j) {
